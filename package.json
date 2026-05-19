@@ -5,11 +5,13 @@
   "type": "module",
   "main": "src/index.js",
   "bin": {
-    "ifc2frag": "./src/index.js"
+    "ifc2frag": "./src/index.js",
+    "ifc2json": "./src/ifc2json.js"
   },
   "scripts": {
     "start": "node src/index.js",
-    "convert": "node src/index.js"
+    "convert": "node src/index.js",
+    "extract": "node src/ifc2json.js"
   },
   "dependencies": {
     "@thatopen/fragments": "^3.4.5",

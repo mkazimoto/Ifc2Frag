@@ -1,0 +1,22 @@
+{
+  "name": "ifc2frag",
+  "version": "1.0.0",
+  "description": "Converts IFC files to ThatOpen .frag format",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "ifc2frag": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "convert": "node src/index.js"
+  },
+  "dependencies": {
+    "@thatopen/fragments": "^3.4.5",
+    "three": "^0.182.0",
+    "web-ifc": "^0.0.77"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

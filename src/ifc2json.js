@@ -13,10 +13,10 @@
  *   -h, --help      Show this help message
  */
 
-import { IfcAPI } from "web-ifc/web-ifc-api-node.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { IfcAPI } from "web-ifc";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -179,13 +179,17 @@ async function buildNode(api, modelID, node, includeProps, includePsets) {
     type: node.type,
   };
 
-  if (includeProps || includePsets) {
-    try {
-      const raw = await api.properties.getItemProperties(modelID, node.expressID, false);
+  // Always fetch item properties (Name is always included; full props when requested)
+  try {
+    const raw = await api.properties.getItemProperties(modelID, node.expressID, false);
+    if (includeProps || includePsets) {
       Object.assign(out, cleanProps(raw));
-    } catch (_) {
-      // some elements may not have base properties
+    } else {
+      const name = flattenValue(raw?.Name);
+      if (name !== null && name !== undefined) out.Name = name;
     }
+  } catch (_) {
+    // some elements may not have base properties
   }
 
   if (includePsets) {
